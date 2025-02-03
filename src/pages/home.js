@@ -49,7 +49,7 @@ export default function Home() {
         // Listen for match and room number
         socket.on("matchRoom", async (roomNumber) => {
             const params = {params: {username: challengeMessage}}; 
-            const foeAvatar = await axios.get("http://localhost:4000/playerAvatar", params)
+            const foeAvatar = await axios.get("https://wvw-server-gtnd.onrender.com/playerAvatar", params)
             .then(res => { return res.data})
             .catch(e => {console.log(e)});
             const info =
