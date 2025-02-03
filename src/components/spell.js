@@ -15,7 +15,7 @@ export default function Spell(props) {
 
     const getSpell = async (id) => {
         const params = {params: {id: id}}
-        const spell = await axios.get('/spell', params)
+        const spell = await axios.get('https://wvw-server-gtnd.onrender.com/spell', params)
         setSpellObj(spell.data.spell)
     }
 

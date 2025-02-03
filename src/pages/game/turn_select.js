@@ -86,7 +86,7 @@ export default function TurnSelect() {
     const setSliderDetails = async (id) => {
         if (id !== -1) {
             const params = {params: {id: id}};
-            const spell = (await axios.get('/spell', params)).data.spell;
+            const spell = (await axios.get('https://wvw-server-gtnd.onrender.com/spell', params)).data.spell;
             if (spell.manaCost === 0) {
                 setSlider([0, 0, 0]);
                 return;
