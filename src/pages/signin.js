@@ -58,10 +58,16 @@ export default function SignIn() {
           justifyContent="center"
           alignItems="center"
           minHeight="100vh"
-          sx={{ backgroundColor: "#f5f5f5" }} // Light gray background, or remove this line for no background
+          sx={{ 
+            backgroundColor: "#f5f5f5", 
+            backgroundImage: "url('/wizard.png')",
+            backgroundSize: "40%",
+            backgroundPosition: "left center", 
+            backgroundRepeat: "no-repeat"
+          }}
         >
           <Paper 
-            elevation={4} // Subtle shadow instead of a background color
+            elevation={4} 
             sx={{
               padding: 4,
               borderRadius: 3,
