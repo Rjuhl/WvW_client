@@ -1,0 +1,1006 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* All Pages CSS */
+body {
+  background-color: #FAF9F6;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Sign in/Login page CSS */
+
+.centerDiv {
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #FAF9F6;
+}
+
+.accessForm {
+  display: block;
+  padding: 48px;
+  background-color: #ADD8E6;
+  border-radius: 10px;
+  opacity: 75%;
+}
+
+.accessForm label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.accessForm input {
+  display: block;
+  margin-bottom: 32px;
+  font-size: 28px;
+}
+
+/* CSS */
+.accessForm button {
+  margin-right: 8px;
+  margin-bottom: 16px;
+  background-color: #e1ecf4;
+  border-radius: 3px;
+  border: 1px solid #7aa7c7;
+  box-shadow: rgba(255, 255, 255, .7) 0 1px 0 0 inset;
+  box-sizing: border-box;
+  color: #39739d;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.15385;
+  outline: none;
+  padding: 8px .8em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.accessForm button:hover,
+.accessForm button:focus {
+  background-color: #b3d3ea;
+  color: #2c5777;
+}
+
+.accessForm button:focus {
+  box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+}
+
+.accessForm button:active {
+  background-color: #a0c7e4;
+  box-shadow: none;
+  color: #2c5777;
+}
+
+/* Character Creation page CSS */
+
+html, body {
+  height: 100%; /* Ensure the body and html take up the full height */
+  margin: 0; /* Remove default margin */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.charCreationPage {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 2%;
+}
+
+.charCreationPage h1 {
+  padding: 0;
+  margin: 0;
+  font-size: xxx-large;
+}
+
+.charCreationPage h2 {
+  padding: 0;
+  margin: 0;
+}
+
+.charCreationUserDiv {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+}
+
+.charCreationUserTopDiv {
+  margin-bottom: auto; /* Pushes this div to the top */
+}
+
+.charCreationUserBottomDiv {
+  margin-top: auto; /* Pushes this div to the bottom */
+}
+
+.charCreationRowDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.charCreationAddButton {
+  margin-left: 10px;
+  height: 20px;
+  width: 30px;
+}
+
+.charCreationPage button {
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.colorWheelDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.characterDisplay {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.characterDisplay2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: flex-end;
+}
+
+.charCreationPage canvas {
+  display: flex;
+  flex-grow: 0.5;
+}
+
+/* Home Page page CSS */
+
+.homePageLeft {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: flex-start; /* Align items to the left */
+  justify-content: space-between; /* Space between top and bottom elements */
+  max-width: 400px; /* Maximum width to prevent it from getting too wide */
+  width: auto; /* Automatically adjust width based on content */
+  height: 100vh; /* Automatically adjust height based on content */
+  padding: 10px; /* Add some padding */
+  background-color: #ffffff; /* White background for the left panel */
+  border-right: 1px solid #ddd; /* Optional border to separate */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  margin: 10px; /* Add some margin around the container */
+}
+
+.homePageLeft h1 {
+  font-size: 30px;
+  margin: 10px 0; /* Space out headings */
+  color: #333; /* Darker text color */
+}
+
+.homePageLeft h2 {
+  font-size: 16px;
+  margin: 5px 0; /* Space out subheadings */
+  color: #555; /* Slightly lighter text color */
+}
+
+.challenge-section h2 {
+  font-size: 30px;
+  margin: 5px 0; /* Space out subheadings */
+  color: #555; /* Slightly lighter text color */
+}
+
+.homePageLeft button {
+  background-color: #ADD8E6; /* Green background */
+  color: black; /* White text */
+  border: none; /* Remove default border */
+  padding: 10px 20px; /* Add padding */
+  margin: 10px 0; /* Space out buttons */
+  cursor: pointer; /* Change cursor to pointer */
+  border-radius: 5px; /* Rounded corners */
+  width: 22em;
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.homePageLeft button:hover {
+  background-color: #A0C4E1; /* Darker green on hover */
+}
+
+.homePageUsername {
+  font-size: 50px;
+  margin: 0; /* Space out headings */
+  color: #333; /* Darker text color */
+  font-weight: bold;
+}
+
+.content,
+.challenge-section {
+    width: 90%; /* Ensure both sections take the full width of the parent */
+    border: 1px solid #ccc; /* Light border around the sections */
+    border-radius: 5px; /* Rounded corners for the border */
+    padding: 15px; /* Padding inside each section */
+    background-color: #f9f9f9; /* Slightly different background for contrast */
+    margin-bottom: 5%; /* Space below each section */
+    box-sizing: border-box; /* Include padding in height/width calculations */
+    flex-shrink: 0; /* Prevent sections from shrinking */
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.homePageRow {
+  display: flex; /* Use flexbox for rows */
+  width: 100%; /* Ensure rows take full width */
+  justify-content: flex-start; /* Align items to the left */
+  align-items: center; /* Center items vertically */
+}
+
+.homePageRow h2 {
+  margin: 5px 12px 5px 0;
+  flex: 1; /* Allow headings to grow equally */
+}
+
+/* Spell comp CSS */
+
+.spellComponent {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  width: 220px;
+  margin: 10px auto;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  text-align: start;
+}
+
+.spellComponentQuestionMark {
+  text-align: center; /* Centers the text horizontally */
+  color: gray; /* Makes the text gray */
+  font-size: 48px; /* Increases the font size */
+  margin: 0; /* Removes any default margin */
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+
+ .spellComponent:hover {
+  transform: scale(1.05);
+  background-color: #e0e0e0;
+}
+
+.spellHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.spellHeader h1 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.spellCost {
+  font-size: 14px;
+}
+
+.spellClassInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.spellClassInfo .spellInfoLeft {
+  font-size: 10px;
+}
+
+.spellClassInfo .spellDetailsRight {
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.spellDescription {
+  margin-top: 12px;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 10px;
+}
+
+/* Admin Page */
+
+.admin-column-container {
+  display: flex;
+  flex-direction: column;
+  height: 700px; 
+  width: 400px;
+  margin: 20px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  overflow-y: auto; 
+}
+
+.admin-column-item {
+  padding: 5px;
+  margin-bottom: 10px;
+  background-color: #e6e6e6;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.admin-column-item:last-child {
+  margin-bottom: 0;
+}
+
+.admin-column-container button {
+  padding: 10px;
+  margin-top: 10px; /* Space above the button */
+  background-color: #007bff; /* Bootstrap primary color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.admin-column-container button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+.admin-page-container {
+    display: flex;
+    flex-direction: row; /* Place child elements side by side */
+    justify-content: space-between; /* Add space between columns */
+    align-items: flex-start; /* Align items at the top */
+    padding: 20px;
+}
+
+.admin-column-container {
+    flex: 2; /* Takes up two parts of the available width */
+    margin-right: 20px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.test-api-container {
+    flex: 1; /* Takes up one part of the available width */
+    background-color: #e6f7ff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center content */
+}
+
+.test-api-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #0056b3;
+}
+
+.test-api-input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.test-api-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.test-api-button:hover {
+    background-color: #0056b3;
+}
+
+/* Shop page CSS */
+/* Styles for the spellForSale container */
+.spellForSale {
+  padding: 20px;
+  text-align: center; /* Center the content inside the container */
+}
+
+/* General button styling */
+.spellForSaleButton {
+  background-color: transparent;
+  border: none;
+}
+
+.spellDisplay {
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center; /* Center the content inside the container */
+}
+
+/* First button hover effect */
+.spell-button:hover {
+  background-color: #45a049; /* Slightly darker green on hover */
+}
+
+/* Container to ensure the buttons are centered below the first button */
+.spawned-buttons-container {
+  display: flex;
+  justify-content: center; /* Center the spawned buttons horizontally */
+}
+
+/* Flex container for the two spawned buttons */
+.spawned-buttons {
+  display: flex; /* Flex layout to align the buttons side by side */
+  gap: 15px; /* Space between the two buttons */
+}
+
+/* Buy button styling */
+.buy-button {
+  display: flex;
+  justify-content: center; /* Center the text horizontally */
+  align-items: center; /* Center the text vertically */
+  
+  flex-grow: 1; /* Allow button to grow based on container */
+  max-width: 90%; /* Ensure the button is slightly smaller than its container */
+  
+  background-color: #4CAF50; /* Green color for 'Buy' */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  
+  padding: 10px 20px; /* Adjust padding for better fit */
+  font-size: 14px; /* Font size */
+  cursor: pointer;
+  
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Add transition for hover effects */
+}
+
+.buy-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.numrows-container {
+  display: flex;               /* Use Flexbox for alignment */
+  flex-direction: row;      /* Arrange children in a column */
+  justify-content:flex-start;
+  align-items: center;
+  gap: 1rem;                   /* Add spacing between elements */
+  padding-top: 0.5rem;  
+  padding-bottom: 0.5rem;           /* Add padding inside the container */
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border: 1px solid #ddd;      /* Light border for a clean look */
+  border-radius: 8px;          /* Rounded corners for a softer look */
+  background-color: #f9f9f9;   /* Subtle background color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+  max-width: 200px;            /* Limit the container's width */
+  margin: 1rem 1rem;           /* Center it horizontally and add vertical margin */
+}
+
+/* Cancel (X) button styling */
+.cancel-button {
+  display: flex;
+  justify-content: center; /* Center the text horizontally */
+  align-items: center; /* Center the text vertically */
+  
+  flex-grow: 1; /* Allow button to grow based on container */
+  max-width: 90%; /* Ensure the button is slightly smaller than its container */
+
+  background-color: #f44336; /* Red color for 'X' */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px; /* Adjust padding for better fit */
+  font-size: 14px; /* Font size */
+  cursor: pointer;
+  
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Add transition for hover effects */
+}
+
+.cancel-button:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}
+
+.spell-row {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+}
+
+/* Container for the entire row */
+.shopRow {
+  display: flex;
+  justify-content: space-between; /* Distribute items across the row */
+  align-items: center; /* Center items vertically */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9; /* Light background */
+  margin: 5px auto;
+  max-width: 80%; /* Set a max width for the container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Home button on the left */
+.shop-home-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the Home button */
+.shop-home-button:hover {
+  background-color: #45a049;
+}
+
+/* Centered Shop title */
+.shop-title {
+  flex: 1; /* Take up available space and center the title */
+  text-align: center; /* Center the Shop title */
+  margin: 0; /* Remove any default margin */
+  font-size: 24px; /* Larger font size for the title */
+  color: #333; /* Darker color for the title */
+}
+
+/* Gold cost on the right */
+.shop-gold-cost {
+  font-size: 18px; /* Slightly smaller than the Shop title */
+  color: #f39c12; /* Gold-like color */
+  margin: 0; /* Remove default margin */
+}
+
+.shop-spells-container {
+  margin: 10px;
+  overflow-x: scroll; /* Allow horizontal scrolling */
+  border: 1px solid #ccc; /* Optional: Add a border for visibility */
+  padding: 10px; /* Optional: Add padding for content */
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
+
+.equip-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.add-button{
+  display: flex; /* Flex layout to align the buttons side by side */
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* Space between the two buttons */
+}
+
+.equip-header {
+  padding: 0;
+  margin: 0;
+}
+
+.equip-page-failure-message {
+  color: #e74c3c; /* Red for failure message */
+  font-size: 16px; /* Adjust font size */
+  background-color: #fce4e4; /* Light red background for emphasis (optional) */
+  padding: 10px;
+  border: 1px solid #e74c3c; /* Border to match text color */
+  border-radius: 4px; /* Optional: Slight rounding of the corners */
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  
+}
+
+.equip-page-success-message {
+  color: #2ecc71; /* Green color for success message */
+  font-size: 16px; /* Adjust font size */
+  background-color: #eafaf1; /* Light green background for emphasis (optional) */
+  padding: 10px;
+  border: 1px solid #2ecc71; /* Border to match text color */
+  border-radius: 4px; /* Optional: Slight rounding of the corners */
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.homePage {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.userListSection {
+  width: 30%;
+  max-width: 300px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #ffffff;
+  border-left: 1px solid #ddd;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.userListSection h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.userList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.userRow {
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #333;
+  border: none;
+  border-radius: 8px;
+  margin: 5px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  text-align: left;
+}
+
+/* Alternating row colors */
+.userRow.evenRow {
+  background-color: #f9f9f9; /* Light background color */
+}
+
+.userRow.oddRow {
+  background-color: #e8f4ff; /* Slightly darker background color */
+}
+
+/* Hover effect */
+.userRow:hover {
+  background-color: #d0e8ff; /* Slightly highlighted color */
+  transform: translateY(-2px); /* Lift effect on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Active effect */
+.userRow:active {
+  background-color: #b0d4ff;
+  transform: translateY(0); /* Reset lift effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.medium-header {
+  font-size: 24px; /* Medium size, similar to h3 */
+  font-weight: 500; /* Elegant weight */
+  text-align: left; /* Aligns text to the left */
+  color: #444; /* A nice dark gray */
+  margin: 15px 20px; /* Adds spacing: 15px top/bottom, 20px left/right */
+  padding-left: 10px; /* Extra padding so it’s not too close to the edge */
+}
+
+.center-character {
+  padding-left: 60px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Dark backdrop */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Make sure it's on top */
+}
+
+.popup {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 80%;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* 🔥 Damage Header (Displays when taking damage) */
+.negative-header {
+  font-size: 28px; /* Slightly bigger for emphasis */
+  font-weight: 700; /* Bolder to indicate impact */
+  color: #ff3b3b; /* Bright red to indicate damage */
+  margin: 10px auto; /* Auto centers horizontally */
+  text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.5); /* Soft red glow effect */
+  animation: shake 0.5s ease-in-out; /* Shake effect for impact */
+}
+
+/* 💚 Healing Header (Displays when gaining health) */
+.positive-header {
+  font-size: 28px; /* Same size as damage for balance */
+  font-weight: 700; /* Bold but not aggressive */
+  color: #28a745; /* Bright green to indicate healing */
+  margin: 10px auto; /* Auto centers horizontally */
+  text-shadow: 2px 2px 5px rgba(0, 255, 0, 0.5); /* Soft green glow effect */
+  animation: fadeIn 0.8s ease-in-out; /* Smooth fade-in effect */
+}
+
+/* 🎭 Shake Animation for Damage */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 80% { transform: translateX(-5px); }
+  40%, 60% { transform: translateX(5px); }
+}
+
+/* 🌟 Fade-In Animation for Healing */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+
+.celebration-header {
+  font-size: 6rem;
+  font-weight: bold;
+  text-align: center;
+  color: gold;
+  text-shadow: 4px 4px 10px rgba(255, 223, 0, 0.9), 6px 6px 15px rgba(255, 165, 0, 0.7);
+  animation: glow 1.5s infinite alternate, bounce 1.5s infinite ease-in-out;
+}
+
+/* 🎆 Glowing Effect */
+@keyframes glow {
+  0% { text-shadow: 4px 4px 10px rgba(255, 223, 0, 0.9); }
+  100% { text-shadow: 6px 6px 15px rgba(255, 165, 0, 1); }
+}
+
+/* 🎊 Bouncing Effect */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* .div-scrollable-container {
+  width: 100%;
+  overflow-y: auto;
+  padding: 1px;
+} */
+
+/* Fullscreen overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);  /* Semi-transparent dark overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;  /* Ensures it's on top */
+  pointer-events: auto; /* Ensures clicks go to GameEnd */
+}
+
+/* Transparent overlay content */
+.overlay-content {
+  background: none; /* Removes white background */
+  padding: 20px;
+  text-align: center;
+  color: white; /* Ensures text is readable */
+}
+
+/* Make buttons more visible */
+.endgame-button {
+  background: rgba(255, 255, 255, 0.3); /* Light transparent background */
+  border: 1px solid white;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.endgame-button:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* 🔹 Home Page - Uses a 3-Column Layout */
+.homePage {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 🔹 Left Panel (Character & Stats) */
+.leftPanel {
+  flex: 1;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Username & Character */
+.userName {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.classType {
+  font-size: 1.4rem;
+  color: #007bff;
+}
+
+/* Stats Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.stat {
+  padding: 15px;
+  background: #f4f4f4;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stat h3 {
+  font-size: 1rem;
+  color: #444;
+}
+
+.stat p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* 🔹 Middle Panel (Challenge Section) */
+.middlePanel {
+  flex: 1;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Challenge Title */
+.sectionTitle {
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Challenge Text */
+.challengeText {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff9800;
+  margin-bottom: 10px;
+}
+
+
+
+/* 🔹 Right Panel (Users & Challengers) */
+.rightPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.userListContainer {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* User List Buttons */
+.userList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.userButton {
+  padding: 10px;
+  font-size: 1rem;
+  background: #f4f4f4;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.userButton:hover {
+  background: #d0e8ff;
+}
+
+/* Success Message */
+.successMessage {
+  font-size: 1rem;
+  color: #28a745;
+  font-weight: bold;
+  text-align: center;
+}
+
