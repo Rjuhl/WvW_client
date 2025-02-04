@@ -1,23 +1,14 @@
-import { useState, useEffect } from "react"
+import { useContext, useState } from "react"
 import Converter from "../utils/converter"
-import axios from 'axios'
+import SpellsContext from "./providers/spellContext"
 /* Spell is designed to wrapped in a button but this isnt strictly necessary */
 
 export default function Spell(props) {
-    const spellId = props.spellId || 0
-    const showCost = props.showCost || false
-    const [spellObj, setSpellObj] = useState('')
-    const converter = new Converter()
-
-    useEffect(() => {
-        getSpell(spellId)
-    }, [])
-
-    const getSpell = async (id) => {
-        const params = {params: {id: id}}
-        const spell = await axios.get(`${process.env.REACT_APP_ENDPOINT}/spell`, params)
-        setSpellObj(spell.data.spell)
-    }
+    const spellId = props.spellId || 0;
+    const showCost = props.showCost || false;
+    const [spellContext, setSpellContext] = useContext(SpellsContext);
+    const [spellObj, setSpellObj] = useState(spellContext[spellId]);
+    const converter = new Converter();
 
     const costElement = () => {
         if (showCost) {

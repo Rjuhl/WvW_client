@@ -123,8 +123,7 @@ export default function TurnSelect() {
         )
     }
 
-    const contructSlider = ()=> {
-        console.log(slider)   
+    const contructSlider = ()=> { 
         if (slider[1] === slider[2] || slider[0] === 0) return (<></>);
         return <Slider
             aria-label="Temperature"
@@ -215,7 +214,7 @@ export default function TurnSelect() {
                     <FavoriteTwoToneIcon sx={{ fontSize: 60, p: 1, color: 'lightgreen' }} />
                     <h1 className="medium-header">{gameContext.foeHealth ? gameContext.foeHealth : '??'}</h1>
                     <BoltTwoToneIcon sx={{ fontSize: 60, p: 1, color: 'blue' }} />
-                    <h1 className="medium-header">{gameContext.foeMana ? gameContext.mana : '??'}</h1>
+                    <h1 className="medium-header">{gameContext.foeMana ? gameContext.foeMana : '??'}</h1>
                 </Stack>
             </Box>
             <h1>{timeLeft}</h1>
