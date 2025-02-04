@@ -73,7 +73,7 @@ export default function EquipSpells(props) {
         }
 
         const params = {username:userInfo.username, password:userInfo.password, spellId:spellId}
-        const res = await axios.post('https://wvw-server-gtnd.onrender.com/setActiveSpell', params)
+        const res = await axios.post(`${process.env.REACT_APP_ENDPOINT}/setActiveSpell`, params)
         if (res.status === 200){
             setSelectedOwnedSpell(null)
             updateReturnMessage("Spell Added", true)
@@ -90,7 +90,7 @@ export default function EquipSpells(props) {
         }
 
         const params = {username:userInfo.username, password:userInfo.password, spellId:spellId}
-        const res = await axios.post('https://wvw-server-gtnd.onrender.com/deactivateSpell', params)
+        const res = await axios.post(`${process.env.REACT_APP_ENDPOINT}/deactivateSpell`, params)
 
         if (res.status === 200) {
             setSelectedActiveSpell(null)

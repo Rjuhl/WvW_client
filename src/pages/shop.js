@@ -49,7 +49,7 @@ export default function Shop() {
     }
 
     const getSpellCost = async (spellId) => {
-        const spell = await axios.get('https://wvw-server-gtnd.onrender.com/spell', {params: {id: spellId}})
+        const spell = await axios.get(`${process.env.REACT_APP_ENDPOINT}/spell`, {params: {id: spellId}})
         .catch(e => console.log(e))
         const price = spell.data.spell.goldCost
         return price
@@ -61,7 +61,7 @@ export default function Shop() {
             alert("You do not have enough gold to purchase this spell")
         } else {
             const params = {username:userInfo.username, password:userInfo.password, spellId:spellId}
-            const res = await axios.post('https://wvw-server-gtnd.onrender.com/buySpell', params)
+            const res = await axios.post(`${process.env.REACT_APP_ENDPOINT}/buySpell`, params)
             if (res.status === 200) {
                 setUserInfo(res.data)
             } else {

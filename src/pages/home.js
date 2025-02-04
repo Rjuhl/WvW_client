@@ -8,7 +8,7 @@ import useOnlineStatus from "../hooks/onlineStatus.js"
 import socket from '../socket'
 import axios from 'axios'
 import useNavigationGuard from "../hooks/useNavigationGuard.js"
-import { Button, Stack } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 
 // const [hatHsva, setHatHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
 // const [staffHsva, setStaffHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
@@ -25,6 +25,7 @@ export default function Home() {
     const [challengeMessage, setChallengeMessage] = useState(null)
     const [onlineList, setOnlineList] = useState([])
     const [challengers, setChallengers] = useState([]);
+    const [errorMessage, setErrorMessage] = useState(null);
     const classType = userInfo.class
     const userName = userInfo.username
     const admin = userInfo.admin || false
@@ -49,10 +50,9 @@ export default function Home() {
         // Listen for match and room number
         socket.on("matchRoom", async (roomNumber) => {
             const params = {params: {username: challengeMessage}}; 
-            const foeAvatar = await axios.get("https://wvw-server-gtnd.onrender.com/playerAvatar", params)
+            const foeAvatar = await axios.get(`${process.env.REACT_APP_ENDPOINT}/playerAvatar`, params)
             .then(res => { return res.data})
             .catch(e => {console.log(e)});
-            const info =
 
             setGameContext({
                 ...userInfo,
@@ -111,6 +111,17 @@ export default function Home() {
         setChallengeMessage(message)
     }
 
+    const handleCharCreationPage = async () => {
+        const params = {username: userInfo.username, password: userInfo.password}
+        const res = await axios.post(`${process.env.REACT_APP_ENDPOINT}/changeStats`, params)
+        if (res.status == 200) {
+            userInfo.money -= 50;
+            setUserInfo(userInfo);
+            navigate(res.data);
+        } 
+        setErrorMessage(res.data);
+    }
+
 
     return (
         <>
@@ -146,7 +157,13 @@ export default function Home() {
                 <Stack spacing={2}>
                     <Button variant="outlined" onClick={() => navigate('/shop')}>Visit Shop</Button>
                     <Button variant="outlined" onClick={() => navigate('/equipspells')}>Equip Spells</Button>
+                    <Button variant="outlined" onClick={() => handleCharCreationPage()}>Change Stats: 50💰</Button>
                     <Button variant="contained" className="button" onClick={() => updateChallenge('None')}>Clear Challenge</Button>
+                    {errorMessage && (
+                        <Typography color="error" variant="body2">
+                            {errorMessage}
+                        </Typography>
+                    )}
                 </Stack>
             </div>
 
