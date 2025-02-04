@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useOnlineStatus from "../hooks/onlineStatus.js"
 import Context from '../components/providers/context.js'
 import axios from 'axios'
+import SpellsContext from "../components/providers/spellContext.js";
 import { Box, Stack, TextField, Button, Typography, Paper } from "@mui/material";
 
 export default function SignIn() {

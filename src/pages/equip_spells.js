@@ -24,10 +24,6 @@ export default function EquipSpells(props) {
 
     useOnlineStatus()
 
-    useEffect(() => {
-
-    }, [])
-
     const addInGameSpell = (spellId) => {
         if (inGameSpells.length >= numSpellSlots) {
             updateReturnMessage(`Can only have ${numSpellSlots} equiped at a time. Remove one before adding any more`, false)
