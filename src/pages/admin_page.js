@@ -60,14 +60,14 @@ export default function AdminPage() {
             code: code
         }
 
-        await axios.post("https://wvw-server-gtnd.onrender.com/addspell", params)
+        await axios.post(`${process.env.REACT_APP_ENDPOINT}/addspell`, params)
         .then(res => setReturnMessage(<p className="success">{res.data}</p>))
         .catch(e => setReturnMessage(<p className="failure">{e.message}</p>))
        
     }
 
     const handleTest = async () => {
-        const response = await axios.get('https://wvw-server-gtnd.onrender.com/test', {})
+        const response = await axios.get(`${process.env.REACT_APP_ENDPOINT}/test`, {})
         response.status === 200 ? setTestResponse(JSON.stringify(response.data)) : setTestResponse('Test API failed')
     }
 

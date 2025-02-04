@@ -40,7 +40,7 @@ export default function CharCreation() {
             userInfo: userInfo
         }
 
-        await axios.post("https://wvw-server-gtnd.onrender.com/submitprofile", params)
+        await axios.post(`${process.env.REACT_APP_ENDPOINT}/submitprofile`, params)
         .then(res => setReturnMessage(handSubmitProfileResponse(res)))
         .catch(e => setReturnMessage(<p className="failure">{e.message}</p>))
     }

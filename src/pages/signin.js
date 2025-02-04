@@ -26,7 +26,7 @@ export default function SignIn() {
             accessCode: accessCode,
             adminCode: adminCode
         }
-        await axios.post("https://wvw-server-gtnd.onrender.com/signup", params)
+        await axios.post(`${process.env.REACT_APP_ENDPOINT}/signup`, params)
         .then(res => setReturnMessage(<p className="success">{res.data}</p>))
         .catch(e => setReturnMessage(<p className="failure">{e.message}</p>))
     }
@@ -47,7 +47,7 @@ export default function SignIn() {
             password: password
         }}
 
-        await axios.get("https://wvw-server-gtnd.onrender.com/login", params)
+        await axios.get(`${process.env.REACT_APP_ENDPOINT}/login`, params)
         .then(res => setReturnMessage(handleLoginResponse(res)))
         .catch(e => setReturnMessage(<p className="failure">{e.message}</p>))
     }
