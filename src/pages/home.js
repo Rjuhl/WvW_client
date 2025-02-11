@@ -125,8 +125,8 @@ export default function Home() {
 
     return (
         <>
-            {adminPage()}
-            <div className="homePage">
+        {adminPage()}
+        <div className="homePage">
             {/* Left Panel - Character & Stats */}
             <div className="leftPanel">
                 <div className="characterSection">
