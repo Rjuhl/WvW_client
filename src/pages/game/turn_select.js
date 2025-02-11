@@ -17,7 +17,9 @@ import { Button } from "@mui/material";
 import EquipSpells from "../equip_spells.js";
 import socket from "../../socket.js";
 import Modifier from "../../components/modifer.js";
-import useNavigationGuard from "../../hooks/useNavigationGuard.js"
+import useNavigationGuard from "../../hooks/useNavigationGuard.js";
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 export default function TurnSelect() {
     const SWAP_SPELL_ID = 15;
@@ -32,6 +34,7 @@ export default function TurnSelect() {
     const [slider, setSlider] = useState([1, 0, 10])
     const [reselectSpells, setReselectSpells] = useState(false);
     const [timeLeft, setTimeLeft] = useState(TURN_TIME / 1000);
+    const [alignment, setAlignment] = useState('yourSpells');
 
     // Character consts
     const [hatColor, setHatColor] = useState({h: gameContext.hatColor[0], s: gameContext.hatColor[1], v: gameContext.hatColor[2]})
@@ -61,7 +64,12 @@ export default function TurnSelect() {
             socket.off('clock');
         };
 
-    }, [timeLeft, slider, gameContext, reselectSpells]);
+    }, [timeLeft, slider, gameContext, reselectSpells, alignment]);
+
+    const handleToggleChange = (event, newAlignment) => {
+        setAlignment(newAlignment);
+        console.log(alignment);
+      };
 
     const handleCastSpell = () => {
         if (spellEquiped === -1) return;
@@ -107,18 +115,16 @@ export default function TurnSelect() {
         }
 
         return (
-            <div className="shop-spells-container">
-                <div className="equip-row">
-                    { gameContext.activeSpells.map((spellId, index) =>
-                        <div key={index}>
-                            <button className="spellForSaleButton" onClick={() => {
-                                setSpellEquiped(spellId); setSliderDetails(spellId); activateSpellSelection(spellId);
-                            }}>
-                                <Spell key={spellId} spellId={spellId} />
-                            </button>
-                        </div>
-                    )}
-                </div>
+            <div className="equip-row">
+                { alignment === "yourSpells" && gameContext.activeSpells.map((spellId, index) =>
+                    <div key={index}>
+                        <button className="spellForSaleButton" onClick={() => {
+                            setSpellEquiped(spellId); setSliderDetails(spellId); activateSpellSelection(spellId);
+                        }}>
+                            <Spell key={spellId} spellId={spellId} />
+                        </button>
+                    </div>
+                )}
             </div>
         )
     }
@@ -147,20 +153,20 @@ export default function TurnSelect() {
     return (
         <>
         <p></p>
-        <Stack direction="row">
+        <Stack direction="row" sx={{display: 'flex'}}>
             <div className="spellDisplay">
                 <Box sx={{
                     display: 'flex',
+                    flexGrow: 1,
                     flexDirection: 'column', 
                     justifyContent: 'center',
                     alignItems: 'center',
                     p: 3, 
-                    border: '1px solid #ccc', 
                     borderRadius: 1, 
                     width: 'fit-content', 
                 }}>
                     <h1 className="medium-header">Selected Spell</h1>
-                    <Stack sx={{ height: 200 }} direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 1}} >
+                    <Stack sx={{ height: 200, flexGrow: 1,}} direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 1}} >
                         {spellEquiped === -1 ? <UnknownSpell/> : <Spell key={spellEquiped} spellId={spellEquiped} showCost={false} />}
                         {contructSlider()}
                     </Stack>
@@ -174,6 +180,9 @@ export default function TurnSelect() {
                     spacing={2}
                     justifyContent="center" 
                     alignItems="center"
+                    sx={{
+                        flexGrow: 1,
+                    }}
                 >
                     <h1 className="medium-header">Effects</h1>
                     {Boolean(gameContext.frozen) && <AcUnitIcon sx={{ fontSize: 50, color: "#00BFFF" }} />}
@@ -187,6 +196,7 @@ export default function TurnSelect() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 width: 'fit-content', 
+                flexGrow: 1,
             }}>
                 <h1 className="medium-header">{gameContext.username}</h1>
                 <div className="center-character"><CharacterCanvas staffHsva={staffColor} setStaffHsva={setStaffColor} hatHsva={hatColor} setHatHsva={setHatColor} scale={0.75} /></div>
@@ -202,6 +212,7 @@ export default function TurnSelect() {
 
             <Box sx={{
                 display: 'flex',
+                flexGrow: 1,
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -217,31 +228,54 @@ export default function TurnSelect() {
                     <h1 className="medium-header">{gameContext.foeMana ? gameContext.foeMana : '??'}</h1>
                 </Stack>
             </Box>
-            <h1>{timeLeft}</h1>
+            <Box sx={{mx: 3}}><h1>{timeLeft}</h1></Box>
         </Stack>
-        
-        <h1 className="medium-header">My Spells</h1>
-        {activeSpells()}
-        <h1 className="medium-header">Observed spells {lastObserved !== 0 ? `from ${round - lastObserved} turns ago` : ''}</h1>
-        <div className="shop-spells-container">
-            <div className="equip-row">
-                { observedSpells.map((spellId, index) =>
-                    <div key={index} className="spellDisplay">
-                        {spellId === -1 ? <UnknownSpell key={index}/> : <Spell key={index} spellId={spellId} showCost={false} />}
-                    </div>
-                )}
+        <Box 
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                padding: 3,
+                margin: "auto",
+            }}
+        >
+            <ToggleButtonGroup
+                color="primary"
+                value={alignment}
+                exclusive
+                onChange={handleToggleChange}
+                orientation="horizontal"
+                sx={{
+                    display: "flex",
+                    justifyContent: "space-evenly", // Spreads buttons evenly
+                    alignItems: "center",
+                    width: "100%", // Ensures it stretches
+                    flexGrow: 1,
+                }}
+            >
+                <ToggleButton sx={{ flex: 1 }} value="yourSpells">Your Spells</ToggleButton>
+                <ToggleButton sx={{ flex: 1 }} value="foeSpells">Foe Spells</ToggleButton>
+                <ToggleButton sx={{ flex: 1 }} value="modifiers">Modifiers</ToggleButton>
+            </ToggleButtonGroup>
+            
+            <div className="shop-spells-container-2">
+                {activeSpells()}
+                <div className="equip-row">
+                    { alignment === "foeSpells" && observedSpells.map((spellId, index) =>
+                        <div key={index} className="spellDisplay">
+                            {spellId === -1 ? <UnknownSpell key={index}/> : <Spell key={index} spellId={spellId} showCost={false} />}
+                        </div>
+                    )}
+                </div>
+                <div className="equip-row">
+                    { alignment === "modifiers" && gameContext.modifiers.map((modifier, index) =>
+                        <div key={index} className="spellDisplay">
+                        <Modifier modifier={modifier}/>
+                        </div>
+                    )}
+                </div>
             </div>
-        </div>
-        <h1 className="medium-header">Active Modifiers</h1>
-        <div className="shop-spells-container">
-            <div className="equip-row">
-                { gameContext.modifiers.map((modifier, index) =>
-                    <div key={index} className="spellDisplay">
-                       <Modifier modifier={modifier}/>
-                    </div>
-                )}
-            </div>
-        </div>
+        </Box>
         <div>
             {reselectSpells && (
                 <div className="popup-overlay">

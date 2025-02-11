@@ -615,6 +615,12 @@ html, body {
   padding: 10px; /* Optional: Add padding for content */
 }
 
+.shop-spells-container-2 {
+  margin: 10px;
+  overflow-x: scroll; /* Allow horizontal scrolling */
+  padding: 10px; /* Optional: Add padding for content */
+}
+
 ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px;
