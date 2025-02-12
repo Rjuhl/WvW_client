@@ -5,7 +5,8 @@ import Context from '../components/providers/context.js'
 import Spell from "../components/spell"
 import axios from "axios";
 import GameContext from "../components/providers/gameContext.js";
-import useNavigationGuard from "../hooks/useNavigationGuard.js"
+import useNavigationGuard from "../hooks/useNavigationGuard.js";
+import { Button, Stack } from "@mui/material";
 
 export default function EquipSpells(props) {
     const numSpellSlots = 6;
@@ -111,7 +112,7 @@ export default function EquipSpells(props) {
                             </button>
                             <div className="add-button">
                                 {addButtonVisable && selectedOwnedSpell === spellId && (
-                                    <button className="buy-button" onClick={() => {inGame ? addInGameSpell(spellId) : addSpell(spellId)}}> Add </button>
+                                    <Button variant="outlined" className="cancel-button" onClick={() => {inGame ? addInGameSpell(spellId) : addSpell(spellId)}}> Add </Button>
                                 )}
                             </div>
                         </div>
@@ -135,7 +136,7 @@ export default function EquipSpells(props) {
                             </button>
                             <div className="add-button">
                                 {removeButtonVisable && selectedActiveSpell === spellId && (
-                                    <button className="cancel-button" onClick={() => {inGame ? removeInGameSpell(spellId) : removeSpell(spellId)}}> Remove </button>
+                                    <Button variant="outlined" color="error" className="cancel-button" onClick={() => {inGame ? removeInGameSpell(spellId) : removeSpell(spellId)}}> Remove </Button>
                                 )}
                             </div>
                         </div>
@@ -148,7 +149,7 @@ export default function EquipSpells(props) {
     return (
         <>
         <div className="shopRow">
-            {!inGame && <button className="shop-home-button" onClick={() => navigate('/home')}>Home</button>}
+            {!inGame && <Button variant="contained" onClick={() => navigate('/home')}>Home</Button>}
             <h1 className="shop-title">Equip Spells</h1>
         </div>
         {activeSpells()}

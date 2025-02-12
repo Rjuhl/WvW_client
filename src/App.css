@@ -292,6 +292,7 @@ html, body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 15px;
   width: 220px;
+  min-height: 170px; /* Keep spells height uniform? */
   margin: 10px auto;
   border-radius: 10px;
   background-color: #f9f9f9;
@@ -311,6 +312,7 @@ html, body {
  .spellComponent:hover {
   transform: scale(1.05);
   background-color: #e0e0e0;
+  cursor: pointer;
 }
 
 .spellHeader {
@@ -527,7 +529,7 @@ html, body {
   border-radius: 8px;          /* Rounded corners for a softer look */
   background-color: #f9f9f9;   /* Subtle background color */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
-  max-width: 200px;            /* Limit the container's width */
+  max-width: 240px;            /* Limit the container's width */
   margin: 1rem 1rem;           /* Center it horizontally and add vertical margin */
 }
 
@@ -536,24 +538,10 @@ html, body {
   display: flex;
   justify-content: center; /* Center the text horizontally */
   align-items: center; /* Center the text vertically */
-  
   flex-grow: 1; /* Allow button to grow based on container */
   max-width: 90%; /* Ensure the button is slightly smaller than its container */
-
-  background-color: #f44336; /* Red color for 'X' */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px; /* Adjust padding for better fit */
-  font-size: 14px; /* Font size */
-  cursor: pointer;
-  
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Add transition for hover effects */
 }
 
-.cancel-button:hover {
-  background-color: #d32f2f; /* Darker red on hover */
-}
 
 .spell-row {
   display: flex;
@@ -611,7 +599,6 @@ html, body {
 .shop-spells-container {
   margin: 10px;
   overflow-x: scroll; /* Allow horizontal scrolling */
-  border: 1px solid #ccc; /* Optional: Add a border for visibility */
   padding: 10px; /* Optional: Add padding for content */
 }
 
