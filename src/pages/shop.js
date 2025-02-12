@@ -5,6 +5,7 @@ import Spell from "../components/spell"
 import Context from '../components/providers/context.js'
 import axios from 'axios'
 import useNavigationGuard from "../hooks/useNavigationGuard.js"
+import { Button, Stack } from "@mui/material";
 
 // NEED TO UPDATE TOTAL SPELLS WHEN ADDING MORE SPELLS 
 const TOTAL_SPELLS = 22
@@ -89,8 +90,8 @@ export default function Shop() {
               {buttonsVisable && selectedSpell === spellId && (
                 <div className="spawned-buttons-container">
                     <div className="spawned-buttons">
-                        <button className="buy-button" onClick={() => buySpell(spellId)}> Buy </button>
-                        <button className="cancel-button" onClick={() => unselectSpell()}> X </button>
+                        <Button variant="contained" onClick={() => buySpell(spellId)}> Buy </Button>
+                        <Button variant="outlined" onClick={() => unselectSpell()}> X </Button>
                     </div>
                 </div>
               )}
@@ -115,15 +116,15 @@ export default function Shop() {
     return (
         <>
         <div className="shopRow">
-            <button className="shop-home-button" onClick={() => navigate('/home')}>Home</button>
+            <Button variant="contained" onClick={() => navigate('/home')}>Home</Button>
             <h1 className="shop-title">Shop</h1>
             <h2 className="shop-gold-cost">Gold: {userInfo.money}</h2>
         </div>
         <div className="numrows-container">
             <label>Rows: </label>
             {numRows}
-            <button className="shop-home-button" onClick={() => setNumRows(Math.min(numRows + 1, 5))}>+</button>
-            <button className="shop-home-button" onClick={() => setNumRows(Math.max(numRows - 1, 2))}>-</button>
+            <Button variant="outlined" onClick={() => setNumRows(Math.min(numRows + 1, 5))}>+</Button>
+            <Button variant="outlined" onClick={() => setNumRows(Math.max(numRows - 1, 2))}>-</Button>
         </div>
         {displaySpells()}
         </>
