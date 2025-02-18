@@ -1,29 +1,28 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate } from 'react-router-dom';
-import useOnlineStatus from "../hooks/onlineStatus.js"
-import Context from '../components/providers/context.js'
+import { useUser } from '../components/providers/context.js'
 import Spell from "../components/spell"
 import axios from "axios";
-import GameContext from "../components/providers/gameContext.js";
-import useNavigationGuard from "../hooks/useNavigationGuard.js";
+import { useGame } from "../components/providers/gameContext.js";
 import { Button, Stack } from "@mui/material";
+import useBaseHooks from "../hooks/allHooks.js";
 
 export default function EquipSpells(props) {
     const numSpellSlots = 6;
     const inGame = props.inGame || false;
-    const [userInfo, setUserInfo] = useContext(Context);
-    const [gameContext, setGameContext] = useContext(GameContext);
+    const { userInfo, setUserInfo } = useUser();
+    const {gameContext, setGameContext}= useGame();
     const [selectedActiveSpell, setSelectedActiveSpell] = useState(null);
     const [selectedOwnedSpell, setSelectedOwnedSpell] = useState(null);
     const [addButtonVisable, setAddButtonVisable] = useState(false);
     const [removeButtonVisable, setRemoveButtonVisable] = useState(false);
     const [returnMessage, setReturnMessage] = useState('');
-    const navigate = useNavigationGuard();
+    const navigate = useNavigate();
 
     const gameSpellList = inGame ? gameContext.activeSpells : [];
     const [inGameSpells, setInGameSpells] = useState(gameSpellList);
 
-    useOnlineStatus()
+    useBaseHooks();
 
     const addInGameSpell = (spellId) => {
         if (inGameSpells.length >= numSpellSlots) {

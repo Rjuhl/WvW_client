@@ -1,22 +1,25 @@
 import { useContext, useState } from "react"
-import { useNavigate } from 'react-router-dom';
-import useOnlineStatus from "../hooks/onlineStatus.js"
-import Context from '../components/providers/context.js'
-import axios from 'axios'
-import SpellsContext from "../components/providers/spellContext.js";
-import { Box, Stack, TextField, Button, Typography, Paper } from "@mui/material";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useUser } from '../components/providers/context.js'
+import axios from 'axios';
+import useBaseHooks from "../hooks/allHooks.js";
+import { Box, Stack, TextField, Button, Typography, Paper, Alert} from "@mui/material";
 
 export default function SignIn() {
-
+    const location = useLocation();
+    const errorMessage = location.state ? <Alert variant="outlined" severity="error">
+      Error: please sign in again
+    </Alert> : "";
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [accessCode, setAccessCode] = useState('')
     const [adminCode, setAdminCode] = useState('')
-    const [returnMessage, setReturnMessage] = useState('')
-    const [userInfo, setUserInfo] = useContext(Context)
+    const [returnMessage, setReturnMessage] = useState(errorMessage)
+    const { userInfo, setUserInfo } = useUser()
+    console.log("UserInfo:", userInfo);
     const navigate = useNavigate();
 
-    useOnlineStatus()
+    useBaseHooks();
 
     const handleSignUp = async (e) => {
         e.preventDefault()
@@ -27,9 +30,14 @@ export default function SignIn() {
             accessCode: accessCode,
             adminCode: adminCode
         }
-        await axios.post(`${process.env.REACT_APP_ENDPOINT}/signup`, params)
-        .then(res => setReturnMessage(<p className="success">{res.data}</p>))
-        .catch(e => setReturnMessage(<p className="failure">{e.message}</p>))
+        const res = await axios.post(`${process.env.REACT_APP_ENDPOINT}/signup`, params)
+        .then(res => res)
+        .catch(e => setReturnMessage(<Alert variant="outlined" severity="error">{e.message}</Alert>))
+        if (res.status === 201) {
+          setReturnMessage(<Alert variant="outlined" severity="error">{res.data}</Alert>);
+        } else {
+          setReturnMessage(<Alert variant="outlined" severity="success">{res.data}</Alert>);
+        }
     }
 
     const handleLoginIn = async (e) => {
@@ -37,7 +45,7 @@ export default function SignIn() {
 
         const handleLoginResponse = (res) => {
             if (res.status === 201) {
-                return <p className="success">{res.data}</p>
+                return <Alert variant="outlined" severity="error">{res.data}</Alert>
             }
             setUserInfo(res.data.user)
             navigate(`/${res.data.route}`)
@@ -54,6 +62,7 @@ export default function SignIn() {
     }
 
     return (
+        <>
         <Box 
           display="flex"
           justifyContent="center"
@@ -67,6 +76,7 @@ export default function SignIn() {
             backgroundRepeat: "no-repeat"
           }}
         >
+          
           <Paper 
             elevation={4} 
             sx={{
@@ -130,13 +140,10 @@ export default function SignIn() {
               </Stack>
     
               {/* Return Message Display */}
-              {returnMessage && (
-                <Typography color="error" variant="body2">
-                  {returnMessage}
-                </Typography>
-              )}
+              {returnMessage && returnMessage}
             </Stack>
           </Paper>
         </Box>
+        </>
       );
     };

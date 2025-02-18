@@ -1,10 +1,9 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate } from 'react-router-dom';
-import useOnlineStatus from "../hooks/onlineStatus.js"
 import Spell from "../components/spell"
-import Context from '../components/providers/context.js'
+import { useUser } from '../components/providers/context.js'
 import axios from 'axios'
-import useNavigationGuard from "../hooks/useNavigationGuard.js"
+import useBaseHooks from "../hooks/allHooks.js";
 import { Button, Stack } from "@mui/material";
 
 // NEED TO UPDATE TOTAL SPELLS WHEN ADDING MORE SPELLS 
@@ -12,13 +11,13 @@ const TOTAL_SPELLS = 22
 export default function Shop() {
     const baseNumRows = 2
     const [numRows, setNumRows] = useState(baseNumRows)
-    const [userInfo, setUserInfo] = useContext(Context)
+    const { userInfo, setUserInfo } = useUser()
     const [numSpells, setNumSpells] = useState(TOTAL_SPELLS - userInfo.spellsOwned.length)
     const [selectedSpell, setSelectedSpell] = useState(null)
     const [buttonsVisable, setButtonsVisable] = useState(false)
-    const navigate = useNavigationGuard();
+    const navigate = useNavigate();
 
-    useOnlineStatus()
+    useBaseHooks()
 
     useEffect(() => {
         setNumSpells(TOTAL_SPELLS - userInfo.spellsOwned.length)
