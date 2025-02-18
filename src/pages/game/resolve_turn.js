@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react"
-import GameContext from "../../components/providers/gameContext.js";
+import { useGame } from "../../components/providers/gameContext.js";
 import {
     Box, 
     CircularProgress, 
@@ -14,12 +14,12 @@ import { useNavigate } from 'react-router-dom';
 import socket from "../../socket.js";
 import CharacterCanvas from "../../components/charcterComponents/character.js";
 import Spell from "../../components/spell.js";
-import useNavigationGuard from "../../hooks/useNavigationGuard.js"
 import GameEnd from "./game_end.js";
+import useBaseHooks from "../../hooks/allHooks.js";
 
 export default function ResolveTurn() {
-    const [gameContext, setGameContext] = useContext(GameContext);
-    const [displayReady, setDisplayReady] = useState(false);
+    const {gameContext, setGameContext}= useGame();
+    const [displayReady, setDisplayReady] = useState(gameContext?.damageDelivered);
     const [damageDelivered, setDamageDelivered] = useState(0);
     const [damageTaken, setDamageTaken] = useState(0);
     const [manaSpent, setManaSpent] = useState(0);
@@ -27,20 +27,22 @@ export default function ResolveTurn() {
     const [foeSpellCast, setFoeSpellCast] = useState(-1);
 
     // Character consts
-    const [hatColor, setHatColor] = useState({h: gameContext.hatColor[0], s: gameContext.hatColor[1], v: gameContext.hatColor[2]})
-    const [staffColor, setStaffColor] = useState({h: gameContext.staffColor[0], s: gameContext.staffColor[1], v: gameContext.staffColor[2]})
-    const [foeHatColor, setFoeHatColor] = useState({h: gameContext.foeAvatar.hatColor[0], s: gameContext.foeAvatar.hatColor[1], v: gameContext.foeAvatar.hatColor[2]})
-    const [foeStaffColor, setFoeStaffColor] = useState({h: gameContext.foeAvatar.staffColor[0], s: gameContext.foeAvatar.staffColor[1], v: gameContext.foeAvatar.staffColor[2]})
+    const [hatColor, setHatColor] = useState({h: gameContext?.hatColor[0], s: gameContext?.hatColor[1], v: gameContext?.hatColor[2]})
+    const [staffColor, setStaffColor] = useState({h: gameContext?.staffColor[0], s: gameContext?.staffColor[1], v: gameContext?.staffColor[2]})
+    const [foeHatColor, setFoeHatColor] = useState({h: gameContext?.foeAvatar.hatColor[0], s: gameContext?.foeAvatar.hatColor[1], v: gameContext?.foeAvatar.hatColor[2]})
+    const [foeStaffColor, setFoeStaffColor] = useState({h: gameContext?.foeAvatar.staffColor[0], s: gameContext?.foeAvatar.staffColor[1], v: gameContext?.foeAvatar.staffColor[2]})
     
     //Page Navigate
-    const navigate = useNavigationGuard();
+    const navigate = useNavigate();
+
+    useBaseHooks();
 
     useEffect(() => {
         socket.on('winner', winner => {
-            gameContext["winner"] = winner;
-            setGameContext(gameContext);
+            console.log("Winner received:", winner);
+            setGameContext(prev => ({ ...prev, winner })); 
         });
-
+    
         socket.on('turnResult', playerTurnResponse => {
             updateGameContext(playerTurnResponse);
             setDamageDelivered(playerTurnResponse.damageDelivered);
@@ -49,15 +51,33 @@ export default function ResolveTurn() {
             setSpellCast(playerTurnResponse.playerMoves[gameContext.username]);
             setFoeSpellCast(playerTurnResponse.playerMoves[gameContext.foeAvatar.player]);
             setDisplayReady(true);
+    
             if (playerTurnResponse.winner) {
-                gameContext["winner"] = playerTurnResponse.winner;
-                setGameContext(gameContext);
-            };
-        })
+                setGameContext(prev => ({ ...prev, winner: playerTurnResponse.winner }));
+            } else {
+                setGameContext(prev => ({ ...prev, location: "/turn-select" }));
+            }
+        });
 
+        const handlePopState = () => {
+            if (gameContext?.winner) {
+                setGameContext(undefined);
+            }
+        };
+
+        const handleBeforeUnload = () => {
+            if (gameContext?.winner) {
+                setGameContext(undefined);
+            }
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        window.addEventListener("popstate", handlePopState);
         return () => {
             socket.off('turnResult');
             socket.off('winner');
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+            window.removeEventListener("popstate", handlePopState);
         };
     }, [displayReady]);
 
@@ -158,7 +178,9 @@ export default function ResolveTurn() {
                         padding: "15px 40px", 
                         minWidth: "200px" 
                     }}
-                    onClick={() => navigate('/turn-select')}
+                    onClick={() => {
+                        navigate('/turn-select');
+                    }}
                 >
                     Return to spell selection
                 </Button>
@@ -168,6 +190,7 @@ export default function ResolveTurn() {
         )
     }
 
+    if (!gameContext) return null;
     return (
         <>{displayResolveTurnPage()}</>
     )

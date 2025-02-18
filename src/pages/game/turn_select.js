@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
-import Context from '../../components/providers/context.js'
-import GameContext from "../../components/providers/gameContext.js";
+import { useUser } from '../../components/providers/context.js'
+import { useGame } from "../../components/providers/gameContext.js";
 import UnknownSpell from "../../components/unknownSpell.js";
 import Spell from "../../components/spell.js";
 import axios from 'axios';
@@ -17,18 +17,19 @@ import { Button } from "@mui/material";
 import EquipSpells from "../equip_spells.js";
 import socket from "../../socket.js";
 import Modifier from "../../components/modifer.js";
-import useNavigationGuard from "../../hooks/useNavigationGuard.js";
+import { useNavigate } from 'react-router-dom';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import useBaseHooks from "../../hooks/allHooks.js";
 
 export default function TurnSelect() {
     const SWAP_SPELL_ID = 15;
     const TURN_TIME = 1000 * 60 * 2;
-    const [userInfo, setUserInfo] = useContext(Context);
-    const [gameContext, setGameContext] = useContext(GameContext);
-    const [round, setRound] = useState(gameContext.round);
-    const [lastObserved, setLastObserved] = useState(gameContext.lastObserved);
-    const [observedSpells, setObservedSpells] = useState(gameContext.observedSpells);
+    const { userInfo, setUserInfo } = useUser();
+    const {gameContext, setGameContext}= useGame();
+    const [round, setRound] = useState(gameContext?.round);
+    const [lastObserved, setLastObserved] = useState(gameContext?.lastObserved);
+    const [observedSpells, setObservedSpells] = useState(gameContext?.observedSpells);
     const [spellEquiped, setSpellEquiped] = useState(-1);
     const [manaSpent, setManaSpent] = useState(0)
     const [slider, setSlider] = useState([1, 0, 10])
@@ -37,17 +38,21 @@ export default function TurnSelect() {
     const [alignment, setAlignment] = useState('yourSpells');
 
     // Character consts
-    const [hatColor, setHatColor] = useState({h: gameContext.hatColor[0], s: gameContext.hatColor[1], v: gameContext.hatColor[2]})
-    const [staffColor, setStaffColor] = useState({h: gameContext.staffColor[0], s: gameContext.staffColor[1], v: gameContext.staffColor[2]})
-    const [foeHatColor, setFoeHatColor] = useState({h: gameContext.foeAvatar.hatColor[0], s: gameContext.foeAvatar.hatColor[1], v: gameContext.foeAvatar.hatColor[2]})
-    const [foeStaffColor, setFoeStaffColor] = useState({h: gameContext.foeAvatar.staffColor[0], s: gameContext.foeAvatar.staffColor[1], v: gameContext.foeAvatar.staffColor[2]})
+    const [hatColor, setHatColor] = useState({h: gameContext?.hatColor[0], s: gameContext?.hatColor[1], v: gameContext?.hatColor[2]})
+    const [staffColor, setStaffColor] = useState({h: gameContext?.staffColor[0], s: gameContext?.staffColor[1], v: gameContext?.staffColor[2]})
+    const [foeHatColor, setFoeHatColor] = useState({h: gameContext?.foeAvatar.hatColor[0], s: gameContext?.foeAvatar.hatColor[1], v: gameContext?.foeAvatar.hatColor[2]})
+    const [foeStaffColor, setFoeStaffColor] = useState({h: gameContext?.foeAvatar.staffColor[0], s: gameContext?.foeAvatar.staffColor[1], v: gameContext?.foeAvatar.staffColor[2]})
 
-    const navigate = useNavigationGuard();
+    const navigate = useNavigate();
+
+    useBaseHooks();
+
     useEffect(() => {
         socket.on('winner', winner => {
             gameContext["winner"] = winner;
+            gameContext["location"] = "/resolve-turn";
             setGameContext(gameContext);
-            navigate('/game-end');
+            navigate('/resolve-turn');
         });
 
         socket.on('clock', time => {
@@ -86,8 +91,9 @@ export default function TurnSelect() {
             manaSpent,
             gameContext.newSpells
         );
-        
-        navigate("/resolve-turn")
+        gameContext["location"] = "/resolve-turn";
+        setGameContext(gameContext);
+        navigate("/resolve-turn");
 
     }
 
@@ -148,8 +154,9 @@ export default function TurnSelect() {
 
     const valuetext = (value) => {
         return `${value}`;
-      }
-
+    }
+    
+    if (!gameContext) return null;
     return (
         <>
         <p></p>

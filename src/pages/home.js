@@ -1,40 +1,39 @@
 import { useState, useEffect, useContext, useReducer } from "react"
 import { useNavigate } from 'react-router-dom';
-import Context from '../components/providers/context.js'
+import { useUser } from '../components/providers/context.js'
 import CharacterCanvas from "../components/charcterComponents/character"
-import GameContext from "../components/providers/gameContext.js";
+import { useGame } from "../components/providers/gameContext.js";
 import Converter from "../utils/converter";
-import useOnlineStatus from "../hooks/onlineStatus.js"
 import socket from '../socket'
 import axios from 'axios'
-import useNavigationGuard from "../hooks/useNavigationGuard.js"
-import { Button, Stack, Typography } from "@mui/material";
+import useBaseHooks from "../hooks/allHooks.js";
+import { Button, Stack, Alert } from "@mui/material";
 
 // const [hatHsva, setHatHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
 // const [staffHsva, setStaffHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
 // <CharacterCanvas staffHsva={staffHsva} setStaffHsva={setStaffHsva} hatHsva={hatHsva}  setHatHsva={setHatHsva}/>
 
 export default function Home() {
-    const [userInfo, setUserInfo] = useContext(Context);
-    const [gameContext, setGameContext] = useContext(GameContext);
-    const [hatColor, setHatColor] = useState({h: userInfo.hatColor[0], s: userInfo.hatColor[1], v: userInfo.hatColor[2]})
-    const [money, setMoney] = useState(userInfo.money)
-    const [staffColor, setStaffColor] = useState({h: userInfo.staffColor[0], s: userInfo.staffColor[1], v: userInfo.staffColor[2]})
-    const [health, mana, classMultiplier] = [userInfo.health, userInfo.mana, userInfo.classMultiplier]
-    const [challenge, setChallenge] = useState('None')
-    const [challengeMessage, setChallengeMessage] = useState(null)
-    const [onlineList, setOnlineList] = useState([])
+    const { userInfo, setUserInfo } = useUser();
+    const {gameContext, setGameContext } = useGame();
+    const [hatColor, setHatColor] = useState({h: userInfo?.hatColor[0], s: userInfo?.hatColor[1], v: userInfo?.hatColor[2]});
+    const [money, setMoney] = useState(userInfo?.money);
+    const [staffColor, setStaffColor] = useState({h: userInfo?.staffColor[0], s: userInfo?.staffColor[1], v: userInfo?.staffColor[2]});
+    const [health, mana, classMultiplier] = [userInfo?.health, userInfo?.mana, userInfo?.classMultiplier];
+    const [challenge, setChallenge] = useState('None');
+    const [challengeMessage, setChallengeMessage] = useState(null);
+    const [onlineList, setOnlineList] = useState([]);
     const [challengers, setChallengers] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
-    const classType = userInfo.class
-    const userName = userInfo.username
-    const admin = userInfo.admin || false
-    const navigate = useNavigationGuard();
-    const converter = new Converter()
-    
-    useOnlineStatus();
-    useEffect(() => {
+    const classType = userInfo?.class;
+    const userName = userInfo?.username;
+    const admin = userInfo?.admin || false;
+    const navigate = useNavigate();
+    const converter = new Converter();
 
+    useBaseHooks();
+
+    useEffect(() => {
         // Listen for the online user list updates
         socket.on('onlineUserListUpdate', onlineUserList => {
             console.log('Online users updated:', onlineUserList);
@@ -68,6 +67,7 @@ export default function Home() {
                 winner: null,
                 frozen: false,
                 ignited: false,
+                location: "/turn-select",
                 modifiers: [
                     {
                         multiplier: userInfo.classMultiplier,
@@ -82,7 +82,7 @@ export default function Home() {
         });
 
         socket.emit('getUserList');
-        socket.emit('getChallengersList', userInfo.username);
+        socket.emit('getChallengersList', userInfo?.username);
 
         // Clean up event listeners on unmount
         return () => {
@@ -122,7 +122,7 @@ export default function Home() {
         setErrorMessage(res.data);
     }
 
-
+    if (!userInfo) return null;
     return (
         <>
         {adminPage()}
@@ -160,9 +160,9 @@ export default function Home() {
                     <Button variant="outlined" onClick={() => handleCharCreationPage()}>Change Stats: 50💰</Button>
                     <Button variant="contained" className="button" onClick={() => updateChallenge('None')}>Clear Challenge</Button>
                     {errorMessage && (
-                        <Typography color="error" variant="body2">
+                        <Alert variant="outlined" severity="error">
                             {errorMessage}
-                        </Typography>
+                        </Alert>
                     )}
                 </Stack>
             </div>

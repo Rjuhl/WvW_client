@@ -1,21 +1,22 @@
 import CharacterStats from "../components/charcterComponents/characterStats"
 import CharacterCustomization from "../components/charcterComponents/characterCustomization"
-import useOnlineStatus from "../hooks/onlineStatus.js"
-import Context from "../components/providers/context.js"
+import { useUser } from "../components/providers/context.js"
 import axios from 'axios'
 import Converter from "../utils/converter"
 import { useContext, useState, useEffect } from "react"
 import { useNavigate } from 'react-router-dom';
-import useNavigationGuard from "../hooks/useNavigationGuard.js"
 import { Button, Stack } from "@mui/material"
+import useBaseHooks from "../hooks/allHooks.js";
 
 
 export default function CharCreation() {
-    const navigate = useNavigationGuard();
-    const [userInfo, setUserInfo] = useContext(Context)
+    const navigate = useNavigate();
+    const { userInfo, setUserInfo } = useUser()
     const [userClass, setUserClass] = useState(0)
     const [returnMessage, setReturnMessage] = useState('')
     const converter = new Converter()
+
+    useBaseHooks();
 
     useEffect(() => {
         updateUserContext()

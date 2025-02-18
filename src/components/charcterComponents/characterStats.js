@@ -1,9 +1,9 @@
 import { Button, Stack } from "@mui/material"
-import Context from "../providers/context"
+import { useUser } from "../providers/context"
 import { useEffect, useContext, useState } from "react"
 
 export default function CharacterStats() {
-    const [userInfo, setUserInfo] = useContext(Context)
+    const { userInfo, setUserInfo } = useUser()
     const [defaultNumPoints, defaultHealth, defaultMana, defaultClassMultiplier] = [4, 100, 8, 1.0]
     const [pointsLeft, setPointsLeft] = useState(defaultNumPoints)
     const [health, setHealth] = useState(defaultHealth)

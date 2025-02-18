@@ -1,15 +1,13 @@
 import './App.css';
 import Router from './components/router'
-import Context from './components/providers/context'
+import { UserProvider } from './components/providers/context'
 import Online from './components/providers/online'
-import GameContext  from './components/providers/gameContext';
+import { GameProvider }  from './components/providers/gameContext';
 import SpellsContext from './components/providers/spellContext';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 
 function App() {
-  const [userInfo, setUserInfo] = useState('')
-  const [gameContext, setGameContext] = useState({})
   const [spellContext, setSpellContext] = useState(null)
   const [online, setOnline] = useState(false)
 
@@ -41,13 +39,13 @@ function App() {
 
   return ( spellContext && 
     <Online.Provider value={[online, setOnline]}>
-      <Context.Provider value={[userInfo, setUserInfo]}>
-        <GameContext.Provider value={[gameContext, setGameContext]}>
+      <UserProvider>
+        <GameProvider>
           <SpellsContext.Provider value={[spellContext, setSpellContext]}>
             <Router />
           </SpellsContext.Provider>
-        </GameContext.Provider>
-      </Context.Provider>
+        </GameProvider>
+      </UserProvider>
     </Online.Provider>
   );
 }

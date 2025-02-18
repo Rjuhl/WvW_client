@@ -9,6 +9,7 @@ import EquipSpells from '../pages/equip_spells'
 import TurnSelect from '../pages/game/turn_select'
 import GameEnd from '../pages/game/game_end';
 import ResolveTurn from '../pages/game/resolve_turn';
+import ErrorBoundary from '../hooks/errorHandler';
 
 export default function Router() {
     // Can use layout to add components to every page (ie footer/header). The rest is put into outlet

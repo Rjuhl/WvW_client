@@ -1,22 +1,23 @@
-import { useContext, useEffect, useRef } from "react";
-import GameContext from "../../components/providers/gameContext";
-import Context from "../../components/providers/context.js";
-import useNavigationGuard from "../../hooks/useNavigationGuard.js";
+import { useEffect, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useGame } from "../../components/providers/gameContext";
+import { useUser } from "../../components/providers/context.js";
 
 export default function GameEnd() {
     const effectRun = useRef(false);
-    const navigate = useNavigationGuard();
-    const [gameContext, setGameContext] = useContext(GameContext);
-    const [userInfo, setUserInfo] = useContext(Context);
+    const navigate = useNavigate();
+    const { gameContext, setGameContext } = useGame();
+    const { userInfo, setUserInfo } = useUser();
 
     useEffect(() => {
-        if (!effectRun.current && userInfo.username === gameContext.winner) {
+        if (!effectRun.current && gameContext && userInfo.username === gameContext.winner) {
             userInfo.money += 10;
-            setUserInfo(userInfo);
+            setUserInfo({ ...userInfo }); 
             effectRun.current = true;
         }
-    }, [gameContext]);
+    }, []);
 
+    if (!gameContext) return null;
     return (
         <div className="overlay">
             {userInfo.username === gameContext.winner && <h1 className="gold-reward">+10💰</h1>}
@@ -24,7 +25,10 @@ export default function GameEnd() {
                 <h1 className="celebration-header">{`${gameContext.winner} wins! 🎉`}</h1>
                 <button 
                     className="endgame-button" 
-                    onClick={() => { setGameContext(undefined); navigate("/home"); }}
+                    onClick={() => {
+                        setGameContext(undefined);
+                        navigate("/home");
+                    }}
                 >
                     Home
                 </button>
@@ -32,4 +36,3 @@ export default function GameEnd() {
         </div>
     );
 }
-

@@ -1,5 +1,27 @@
-import { createContext } from "react"
+import { createContext, useState, useEffect, useContext } from "react";
 
-const Context = createContext(undefined)
+const UserContext = createContext(undefined);
 
-export default Context
+export const UserProvider = ({ children }) => {
+    const [userInfo, setUserInfo] = useState(() => {
+        const savedUser = sessionStorage.getItem("user");
+        return savedUser ? JSON.parse(savedUser) : null;
+    });
+
+    useEffect(() => {
+        if (userInfo) {
+            sessionStorage.setItem("user", JSON.stringify(userInfo));
+        } else {
+            sessionStorage.removeItem("user");
+        }
+    }, [userInfo]);
+
+    return (
+        <UserContext.Provider value={{ userInfo: userInfo, setUserInfo: setUserInfo }}>
+            {children}
+        </UserContext.Provider>
+    );
+};
+
+export const useUser = () => useContext(UserContext);
+

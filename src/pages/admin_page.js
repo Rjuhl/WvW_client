@@ -1,11 +1,11 @@
-import { useContext, useState, useEffect } from "react"
-import Context from '../components/providers/context.js'
-import useOnlineStatus from "../hooks/onlineStatus.js"
-import axios from 'axios'
+import { useContext, useState, useEffect } from "react";
+import { useUser } from '../components/providers/context.js';
+import useBaseHooks from "../hooks/allHooks.js";
+import axios from 'axios';
 
 export default function AdminPage() {
     const numFlags = 20
-    const [userInfo, setUserInfo] = useContext(Context)
+    const { userInfo, setUserInfo } = useUser()
     const [spellName, setSpellName] = useState('')
     const [spellClass, setSpellClass] = useState('')
     const [spellType, setSpellType] = useState('')
@@ -20,7 +20,7 @@ export default function AdminPage() {
     const [code, setCode] = useState('')
     const [id, setId] = useState(-1)
 
-    useOnlineStatus()
+    useBaseHooks()
 
     const handleFlagInput = () => {
         /* flags should be of form [[index1:val1], [index2:val2], ... [indexn, valn]] */

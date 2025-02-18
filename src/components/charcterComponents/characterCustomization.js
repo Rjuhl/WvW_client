@@ -2,12 +2,12 @@ import React, { useState, Fragment, useEffect, useContext } from 'react';
 import Wheel from '@uiw/react-color-wheel';
 import ShadeSlider from '@uiw/react-color-shade-slider';
 import CharacterCanvas from './character';
-import Context from '../providers/context';
+import { useUser } from '../providers/context';
 
 /* <div style={{ width: '100%', height: 34, marginTop: 20, background: hsvaToHex(hsva) }}></div> */
 
 export default function CharacterCustomization() {
-    const [userInfo, setUserInfo] = useContext(Context)
+    const { userInfo, setUserInfo } = useUser()
     const [hatHsva, setHatHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
     const [staffHsva, setStaffHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
 
