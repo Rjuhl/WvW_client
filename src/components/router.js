@@ -10,6 +10,7 @@ import TurnSelect from '../pages/game/turn_select'
 import GameEnd from '../pages/game/game_end';
 import ResolveTurn from '../pages/game/resolve_turn';
 import ErrorBoundary from '../hooks/errorHandler';
+import PetShop from '../pages/pet_shop';
 
 export default function Router() {
     // Can use layout to add components to every page (ie footer/header). The rest is put into outlet
@@ -35,6 +36,7 @@ export default function Router() {
                     <Route path="/turn-select" element={<TurnSelect />} />
                     <Route path="/game-end" element={<GameEnd />} />
                     <Route path="/resolve-turn" element={<ResolveTurn />} />
+                    <Route path="/pet-shop" element={<PetShop/>} />
                 </Route>
                 </Routes>
             </BrowserRouter>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useReducer } from "react"
+import { useState, useEffect, useContext, useReducer, useRef } from "react"
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../components/providers/context.js'
 import CharacterCanvas from "../components/charcterComponents/character"
@@ -8,6 +8,7 @@ import socket from '../socket'
 import axios from 'axios'
 import useBaseHooks from "../hooks/allHooks.js";
 import { Button, Stack, Alert } from "@mui/material";
+import createPetCanvas from "../utils/drawPetCanvas.js";
 
 // const [hatHsva, setHatHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
 // const [staffHsva, setStaffHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
@@ -95,7 +96,7 @@ export default function Home() {
     const adminPage = () => {
         if (admin) {
             return (
-                <button onClick={() => navigate('/adminpage')}>Admin Page</button>
+                <Button variant="outlined" onClick={() => navigate('/adminpage')}>Admin Page</Button>
             )
         }
         return <></>
@@ -125,7 +126,6 @@ export default function Home() {
     if (!userInfo) return null;
     return (
         <>
-        {adminPage()}
         <div className="homePage">
             {/* Left Panel - Character & Stats */}
             <div className="leftPanel">
@@ -137,6 +137,7 @@ export default function Home() {
                         hatHsva={hatColor} 
                         setHatHsva={setHatColor} 
                         scale={0.75} 
+                        pet={userInfo.petEquiped}
                     />
                     <h2 className="classType">Class: {converter.spellClassToString(classType)}</h2>
                 </div>
@@ -155,9 +156,11 @@ export default function Home() {
                 <p className="challengeText">{challenge || "No active challenge"}</p>
                 {/* Buttons */}
                 <Stack spacing={2}>
+                    <Button variant="outlined" onClick={() => navigate('/pet-shop')}>Pet Shop</Button>
                     <Button variant="outlined" onClick={() => navigate('/shop')}>Visit Shop</Button>
                     <Button variant="outlined" onClick={() => navigate('/equipspells')}>Equip Spells</Button>
                     <Button variant="outlined" onClick={() => handleCharCreationPage()}>Change Stats: 50💰</Button>
+                    {adminPage()}
                     <Button variant="contained" className="button" onClick={() => updateChallenge('None')}>Clear Challenge</Button>
                     {errorMessage && (
                         <Alert variant="outlined" severity="error">
