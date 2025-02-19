@@ -41,6 +41,7 @@ export default function ResolveTurn() {
         socket.on('winner', winner => {
             console.log("Winner received:", winner);
             setGameContext(prev => ({ ...prev, winner })); 
+            navigate('/game-end');
         });
     
         socket.on('turnResult', playerTurnResponse => {

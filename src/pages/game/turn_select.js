@@ -50,9 +50,10 @@ export default function TurnSelect() {
     useEffect(() => {
         socket.on('winner', winner => {
             gameContext["winner"] = winner;
-            gameContext["location"] = "/resolve-turn";
-            setGameContext(gameContext);
-            navigate('/resolve-turn');
+            gameContext["location"] = "/game-end";
+            setGameContext({...gameContext});
+            navigate('/game-end');
+            // navigate('/resolve-turn');
         });
 
         socket.on('clock', time => {
@@ -70,6 +71,15 @@ export default function TurnSelect() {
         };
 
     }, [timeLeft, slider, gameContext, reselectSpells, alignment]);
+
+    const displayTime = (time) => {
+        let display = time.toString();
+        const loops = Math.max(3 - display.length, 0);
+        for (let i = 0; i < loops; i++) {
+            display = " " + display
+        }
+        return display;
+    }
 
     const handleToggleChange = (event, newAlignment) => {
         setAlignment(newAlignment);
@@ -235,7 +245,7 @@ export default function TurnSelect() {
                     <h1 className="medium-header">{gameContext.foeMana ? gameContext.foeMana : '??'}</h1>
                 </Stack>
             </Box>
-            <Box sx={{mx: 3}}><h1>{timeLeft}</h1></Box>
+            <Box sx={{mx: 3}}><h1><pre>{displayTime(timeLeft)}</pre></h1></Box>
         </Stack>
         <Box 
             sx={{

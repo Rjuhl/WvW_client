@@ -10,11 +10,34 @@ export default function GameEnd() {
     const { userInfo, setUserInfo } = useUser();
 
     useEffect(() => {
+        if (!gameContext) {
+            navigate('/home');
+        }
+
         if (!effectRun.current && gameContext && userInfo.username === gameContext.winner) {
             userInfo.money += 10;
             setUserInfo({ ...userInfo }); 
             effectRun.current = true;
         }
+
+        const handlePopState = () => {
+            if (gameContext?.winner) {
+                setGameContext(undefined);
+            }
+        };
+
+        const handleBeforeUnload = () => {
+            if (gameContext?.winner) {
+                setGameContext(undefined);
+            }
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        window.addEventListener("popstate", handlePopState);
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+            window.removeEventListener("popstate", handlePopState);
+        };
     }, []);
 
     if (!gameContext) return null;
