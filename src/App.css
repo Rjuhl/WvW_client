@@ -1024,3 +1024,65 @@ html, body {
   text-align: center;
 }
 
+.petComponent {
+  position: relative; /* Allows absolute positioning inside */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  width: 350px;
+  height: 450px; /* Keeps height uniform */
+  margin: 10px auto;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Icon styling */
+.petIconContainer {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* Title Styling */
+.petTitle {
+  font-size: 2.5em; /* Medium size, similar to h3 */
+  font-weight: 800; /* Elegant weight */
+  color: #444; /* A nice dark gray */
+  margin: 20px; /* Adds spacing: 15px top/bottom, 20px left/right */
+}
+
+/* Image Styling */
+.petImage {
+  display: block;
+  max-width: 80%;
+  height: auto;
+  margin: 20px auto;
+}
+
+/* Button Container */
+.petButtonContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: auto; /* Pushes the button to the bottom */
+  margin-bottom: 20px;
+}
+/* Button Styling */
+.petButton {
+  width: 80%; /* Makes button take 80% of the component width */
+  max-width: 280px; /* Ensures it doesn't stretch too much on wider screens */
+  padding: 10px 0; /* Adds vertical padding for better appearance */
+  font-size: 1rem; /* Ensures text is readable */
+  border-radius: 5px; /* Rounds button corners slightly */
+}
+
+
+.pet-row {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  justify-content: center;
+}

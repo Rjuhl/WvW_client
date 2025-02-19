@@ -20,6 +20,12 @@ export default function AdminPage() {
     const [code, setCode] = useState('')
     const [id, setId] = useState(-1)
 
+    const [petId, setPetId] = useState(-1);
+    const [petName, setPetName] = useState('');
+    const [petCost, setPetCost] = useState(-1);
+    const [petFilePath, setPetFilePath] = useState('');
+    const [petReturnMessage, setPetReturnMessage] = useState('')
+
     useBaseHooks()
 
     const handleFlagInput = () => {
@@ -40,6 +46,20 @@ export default function AdminPage() {
         /* Die input should be of the form #d# aka 1d6 */
         let [num, die] = input.split('d')
         return [Number(num), Number(die)]
+    }
+
+    const handelPetSubmission = async () => {
+        const params = {
+            id: petId,
+            name: petName,
+            cost: petCost,
+            filePath: petFilePath,
+            code: code
+        }
+
+        await axios.post(`${process.env.REACT_APP_ENDPOINT}/addpet`, params)
+        .then(res => setPetReturnMessage(<p className="success">{res.data}</p>))
+        .catch(e => setPetReturnMessage(<p className="failure">{e.message}</p>))
     }
 
     const handleSubmission = async () => {
@@ -119,6 +139,27 @@ export default function AdminPage() {
 
                         {returnMessage}
                         <button className="admin-column-item" onClick={() => handleSubmission()}>Submit Spell</button>
+                    </div>
+
+                    <div className="admin-column-container">
+                        <h1 className="admin-column-item">Pet Creation</h1>
+                        <label className="admin-column-item">Pet Id</label>
+                        <input className="admin-column-item" type="text" id="petId" onChange={(e) => setPetId(e.target.value)}></input>
+
+                        <label className="admin-column-item">Name</label>
+                        <input className="admin-column-item" type="text" id="petName" onChange={(e) => setPetName(e.target.value)}></input>
+
+                        <label className="admin-column-item">Pet Cost</label>
+                        <input className="admin-column-item" type="text" id="petCost" onChange={(e) => setPetCost(e.target.value)}></input>
+
+                        <label className="admin-column-item">File Path</label>
+                        <input className="admin-column-item" type="text" id="petFilePath" onChange={(e) => setPetFilePath(e.target.value)}></input>
+
+                        <label className="admin-column-item">Code</label>
+                        <input className="admin-column-item" type="text" id="code" onChange={(e) => setCode(e.target.value)}></input>
+
+                        {petReturnMessage}
+                        <button className="admin-column-item" onClick={() => handelPetSubmission()}>Submit Pet</button>
                     </div>
                 </div>
                 </>

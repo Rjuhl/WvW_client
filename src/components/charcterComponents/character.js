@@ -1,14 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import stickFigure from '../../images/stick_figure.png'; 
-import wizardHat from "../../images/wizard_hat.png"
-import wizardStaff from "../../images/wizard_staff.png"
+import wizardHat from "../../images/wizard_hat.png";
+import wizardStaff from "../../images/wizard_staff.png";
 import { hsvaToHex } from '@uiw/color-convert';
+import createPetCanvas from '../../utils/drawPetCanvas';
+import axios from 'axios';
 
 
 export default function CharacterCanvas(props) {
-    const black = { h: 0, s: 0, v: 0, a: 0 }
-    const scale = props.scale || 1
-    const canvasSize = Math.round(300 * scale)
+    console.log("Props", props);
+    const black = { h: 0, s: 0, v: 0, a: 0 };
+    const scale = props.scale || 1;
+    const pet = props.pet === null || props.pet === undefined ? -1: props.pet;
+    const [petInfo, setPetInfo] = useState(null);
+    const canvasSize = Math.round(300 * scale);
     const canvasId = props.canvasId || "characterCanvas";
 
     useEffect(() => {
@@ -19,6 +24,24 @@ export default function CharacterCanvas(props) {
     useEffect(() => {
         drawImage(stickFigure, black, 0, 60 * scale, 0.75 * scale)
     }, []) 
+
+    useEffect(() => {
+        if (pet !== -1 && !petInfo) getPetInfo(pet);
+        if (pet !== -1 && petInfo) {
+            createPetCanvas(petInfo.filePath, 80 * scale).then((petCanvas) => {
+                const canvas = document.getElementById(canvasId);
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(petCanvas, 0, canvas.height * scale - (6 * scale));
+            }).catch((error) => {
+                console.error("Failed to create pet canvas:", error);
+            });
+        }
+    }, [pet, petInfo]);
+
+    const getPetInfo = async (id) => {
+        const res = await axios.get(`${process.env.REACT_APP_ENDPOINT}/pet`, { params: { id: id } });
+        if (res.status === 200) setPetInfo(res.data.pet);
+    }
 
     const drawOffScreenCanvas = (color, img) => {
         const [r, g, b] = hsvaToHex(color).match(/\w\w/g).map(x => parseInt(x, 16))
@@ -54,7 +77,7 @@ export default function CharacterCanvas(props) {
         const ctx = canvas.getContext("2d")
 
         img.onload = () => {
-            const colorImage= drawOffScreenCanvas(color, img)
+            const colorImage = drawOffScreenCanvas(color, img)
             ctx.drawImage(colorImage, x, y, img.width * scale, img.height * scale);
         }
 

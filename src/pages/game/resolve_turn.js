@@ -29,8 +29,10 @@ export default function ResolveTurn() {
     // Character consts
     const [hatColor, setHatColor] = useState({h: gameContext?.hatColor[0], s: gameContext?.hatColor[1], v: gameContext?.hatColor[2]})
     const [staffColor, setStaffColor] = useState({h: gameContext?.staffColor[0], s: gameContext?.staffColor[1], v: gameContext?.staffColor[2]})
+    const [pet, setPet] = useState(gameContext?.petEquiped)
     const [foeHatColor, setFoeHatColor] = useState({h: gameContext?.foeAvatar.hatColor[0], s: gameContext?.foeAvatar.hatColor[1], v: gameContext?.foeAvatar.hatColor[2]})
     const [foeStaffColor, setFoeStaffColor] = useState({h: gameContext?.foeAvatar.staffColor[0], s: gameContext?.foeAvatar.staffColor[1], v: gameContext?.foeAvatar.staffColor[2]})
+    const [foePet, setFoePet] = useState(gameContext?.foeAvatar.petEquiped)
     
     //Page Navigate
     const navigate = useNavigate();
@@ -150,7 +152,7 @@ export default function ResolveTurn() {
                 <Stack direction="row">
                     <Stack>
                         <h1 className="medium-header">{gameContext.username}</h1>
-                        <CharacterCanvas staffHsva={staffColor} setStaffHsva={setStaffColor} hatHsva={hatColor} setHatHsva={setHatColor} scale={1.25} />
+                        <CharacterCanvas staffHsva={staffColor} setStaffHsva={setStaffColor} hatHsva={hatColor} setHatHsva={setHatColor} scale={1.25} pet={pet} />
                         <Divider orientation="horizontal" sx={{mx: 3}} flexItem />
                         <Stack direction="row">
                             <FavoriteTwoToneIcon sx={{ fontSize: 60, p: 1, color: 'lightgreen' }} />
@@ -164,7 +166,7 @@ export default function ResolveTurn() {
                     <Spell key="foeSpell" spellId={foeSpellCast} showCost={false} />
                     <Stack>
                         <h1 className="medium-header">{gameContext.foeAvatar.player}</h1>
-                        <CharacterCanvas canvasId="foeAvatar" staffHsva={foeStaffColor} setStaffHsva={setFoeStaffColor} hatHsva={foeHatColor} setHatHsva={setFoeHatColor} scale={1.25} />
+                        <CharacterCanvas canvasId="foeAvatar" staffHsva={foeStaffColor} setStaffHsva={setFoeStaffColor} hatHsva={foeHatColor} setHatHsva={setFoeHatColor} scale={1.25} pet={foePet} />
                         <Divider orientation="horizontal" sx={{mx: 3}} flexItem />
                         <Stack direction="row">
                             <FavoriteTwoToneIcon sx={{ fontSize: 60, p: 1, color: 'lightgreen' }} />

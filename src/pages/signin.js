@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useUser } from '../components/providers/context.js'
 import axios from 'axios';
@@ -20,6 +20,19 @@ export default function SignIn() {
     const navigate = useNavigate();
 
     useBaseHooks();
+
+    const buttonRef = useRef(null);
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === "Enter" && buttonRef.current) {
+                buttonRef.current.click();
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyDown);
+        return () => document.removeEventListener("keydown", handleKeyDown);
+    }, []);
 
     const handleSignUp = async (e) => {
         e.preventDefault()
@@ -134,6 +147,7 @@ export default function SignIn() {
 
                   fullWidth 
                   onClick={handleLoginIn}
+                  ref={buttonRef}
                 >
                   Login
                 </Button>
