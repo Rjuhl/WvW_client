@@ -8,7 +8,6 @@ import axios from 'axios';
 
 
 export default function CharacterCanvas(props) {
-    console.log("Props", props);
     const black = { h: 0, s: 0, v: 0, a: 0 };
     const scale = props.scale || 1;
     const pet = props.pet === null || props.pet === undefined ? -1: props.pet;
@@ -31,7 +30,7 @@ export default function CharacterCanvas(props) {
             createPetCanvas(petInfo.filePath, 80 * scale).then((petCanvas) => {
                 const canvas = document.getElementById(canvasId);
                 const ctx = canvas.getContext("2d");
-                ctx.drawImage(petCanvas, 0, canvas.height * scale - (6 * scale));
+                ctx.drawImage(petCanvas, 0, canvas.height - (80 * scale));
             }).catch((error) => {
                 console.error("Failed to create pet canvas:", error);
             });

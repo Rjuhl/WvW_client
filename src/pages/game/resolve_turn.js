@@ -40,6 +40,7 @@ export default function ResolveTurn() {
     useBaseHooks();
 
     useEffect(() => {
+        console.log("pet", pet, "foepet", foePet);
         socket.on('winner', winner => {
             console.log("Winner received:", winner);
             setGameContext(prev => ({ ...prev, winner })); 

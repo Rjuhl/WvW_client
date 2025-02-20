@@ -85,7 +85,6 @@ export default function TurnSelect() {
 
     const handleToggleChange = (event, newAlignment) => {
         setAlignment(newAlignment);
-        console.log(alignment);
       };
 
     const handleCastSpell = () => {
