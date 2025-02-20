@@ -24,7 +24,7 @@ export default function PetShop() {
         const petCards = []
         for (let i = 0; i < numPets; i++) {
             const petCard = (
-                <PetCard id={i} petId={i} returnMessage={setReturnMessage} />      
+                <PetCard key={i} petId={i} returnMessage={setReturnMessage} />      
             );
             petCards.push(petCard)
         }
